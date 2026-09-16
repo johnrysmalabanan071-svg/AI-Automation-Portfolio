@@ -2,171 +2,207 @@
 
 import { useEffect, useRef } from 'react';
 
-type Point = { x: number; y: number; dx: number; dy: number };
+type Node = {
+  x: number;
+  y: number;
+  phase: number;
+};
 
-/** Decorative circuit mesh. Tune spacing, radius and displacement below. */
-export function InteractiveBackground({ theme }: { theme: 'light' | 'dark' }) {
+export function NeuralBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas?.getContext('2d');
-    if (!canvas || !ctx) return;
+    if (!canvas) return;
 
-    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const pointer = window.matchMedia('(hover: hover) and (pointer: fine)');
-    const spacing = 64;
-    const radius = 240;
-    const dark = theme === 'dark';
-    const ink = dark ? '91, 153, 185' : '54, 107, 145';
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const motionQuery = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    );
+    const touchQuery = window.matchMedia('(pointer: coarse)');
+
     let width = 0;
     let height = 0;
-    let columns = 0;
-    let points: Point[] = [];
     let frame = 0;
-    let lastTime = 0;
-    let active = false;
-    let strength = 0;
-    let mouseX = -1000;
-    let mouseY = -1000;
-    let glowX = 0;
-    let glowY = 0;
-    let disposed = false;
+    let nodes: Node[] = [];
+    let pointer = { x: -1000, y: -1000 };
+    let lastDraw = 0;
 
-    const draw = (time: number) => {
-      frame = 0;
-      if (disposed || document.hidden) return;
-      const step = Math.min((time - lastTime) / 16.67 || 1, 3);
-      lastTime = time;
-      const easing = 1 - Math.pow(0.84, step);
-      const enabled = pointer.matches && !motion.matches;
-      const targetStrength = active && enabled ? 1 : 0;
-      strength += (targetStrength - strength) * easing;
-      glowX += (mouseX - glowX) * easing;
-      glowY += (mouseY - glowY) * easing;
-      let moving = Math.abs(strength - targetStrength) > 0.001;
-      if (active && (Math.abs(glowX - mouseX) + Math.abs(glowY - mouseY)) > 0.1) moving = true;
+    const isStatic = () => motionQuery.matches || touchQuery.matches;
 
-      ctx.clearRect(0, 0, width, height);
-      if (strength > 0.002) {
-        const glow = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, radius * 1.25);
-        glow.addColorStop(0, `rgba(34, 211, 238, ${strength * (dark ? 0.10 : 0.06)})`);
-        glow.addColorStop(0.45, `rgba(59, 130, 246, ${strength * 0.04})`);
-        glow.addColorStop(1, 'rgba(59, 130, 246, 0)');
-        ctx.fillStyle = glow;
-        ctx.fillRect(0, 0, width, height);
-      }
+    function resize() {
+      if (!canvas) return;
 
-      for (const point of points) {
-        const x = point.x - mouseX;
-        const y = point.y - mouseY;
-        const distance = Math.hypot(x, y);
-        const influence = enabled && active ? Math.pow(Math.max(0, 1 - distance / radius), 2) : 0;
-        // A gentle outward bend with a slight orbit gives this grid its own character.
-        const offsetX = ((x - y * 0.3) / Math.max(distance, 1)) * influence * 42;
-        const offsetY = ((y + x * 0.3) / Math.max(distance, 1)) * influence * 42;
-        point.dx += (offsetX - point.dx) * easing;
-        point.dy += (offsetY - point.dy) * easing;
-        if (Math.abs(offsetX - point.dx) + Math.abs(offsetY - point.dy) > 0.025) moving = true;
-      }
-
-      ctx.lineWidth = 0.7;
-      ctx.strokeStyle = `rgba(${ink}, ${dark ? 0.16 : 0.13})`;
-      ctx.beginPath();
-      points.forEach((point, i) => {
-        const right = (i + 1) % columns !== 0 ? points[i + 1] : undefined;
-        const below = points[i + columns];
-        for (const next of [right, below]) {
-          if (!next) continue;
-          ctx.moveTo(point.x + point.dx, point.y + point.dy);
-          ctx.lineTo(next.x + next.dx, next.y + next.dy);
-        }
-      });
-      ctx.stroke();
-
-      points.forEach((point, i) => {
-        const x = point.x + point.dx;
-        const y = point.y + point.dy;
-        const lit = Math.max(0, 1 - Math.hypot(x - glowX, y - glowY) / radius) * strength;
-        ctx.fillStyle = lit > 0.02
-          ? `rgba(${dark ? '103, 232, 249' : '2, 132, 199'}, ${0.25 + lit * 0.6})`
-          : `rgba(${ink}, ${dark ? 0.3 : 0.24})`;
-        ctx.beginPath();
-        ctx.arc(x, y, 1 + lit * 1.6, 0, Math.PI * 2);
-        ctx.fill();
-        if (i % 5 === 0 && lit > 0.12) {
-          ctx.strokeStyle = `rgba(56, 189, 248, ${lit * 0.45})`;
-          ctx.beginPath();
-          ctx.moveTo(x, y - 5); ctx.lineTo(x + 5, y);
-          ctx.lineTo(x, y + 5); ctx.lineTo(x - 5, y);
-          ctx.closePath(); ctx.stroke();
-        }
-      });
-      canvas.dataset.ready = 'true';
-      // Render on demand; no continuous animation loop when the cursor settles.
-      if (moving && enabled) frame = window.requestAnimationFrame(draw);
-    };
-
-    const schedule = () => {
-      if (!frame && !document.hidden && !disposed) {
-        lastTime = performance.now();
-        frame = window.requestAnimationFrame(draw);
-      }
-    };
-    const resize = () => {
       width = window.innerWidth;
       height = window.innerHeight;
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      canvas.width = Math.round(width * dpr);
-      canvas.height = Math.round(height * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      columns = Math.ceil(width / spacing) + 2;
-      const rows = Math.ceil(height / spacing) + 2;
-      points = Array.from({ length: columns * rows }, (_, i) => ({
-        x: (i % columns) * spacing - 24,
-        y: Math.floor(i / columns) * spacing - 24,
-        dx: 0, dy: 0,
+
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      ctx!.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+      const count = Math.min(
+        65,
+        Math.max(18, Math.floor((width * height) / 20000))
+      );
+
+      nodes = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        phase: Math.random() * Math.PI * 2,
       }));
-      schedule();
-    };
-    const move = (event: PointerEvent) => {
-      if (event.pointerType === 'touch' || motion.matches || !pointer.matches) return;
-      mouseX = event.clientX; mouseY = event.clientY;
-      if (!active) { glowX = mouseX; glowY = mouseY; }
-      active = true;
-      schedule();
-    };
-    const leave = () => { active = false; schedule(); };
-    const preferenceChanged = () => {
-      active = false; strength = 0;
-      points.forEach((point) => { point.dx = 0; point.dy = 0; });
-      schedule();
-    };
-    const visibilityChanged = () => {
-      if (document.hidden) { window.cancelAnimationFrame(frame); frame = 0; active = false; }
-      else schedule();
-    };
+
+      draw(performance.now());
+    }
+
+    function draw(now: number) {
+      if (!ctx) return;
+
+      ctx.clearRect(0, 0, width, height);
+
+      const time = isStatic() ? 0 : now / 1000;
+      const connectionDistance = 155;
+
+      const positions = nodes.map((node) => {
+        let x = node.x + Math.sin(time * 0.18 + node.phase) * 10;
+        let y = node.y + Math.cos(time * 0.15 + node.phase) * 10;
+
+        const dx = x - pointer.x;
+        const dy = y - pointer.y;
+        const distance = Math.hypot(dx, dy);
+
+        if (!isStatic() && distance > 0 && distance < 150) {
+          const force = (1 - distance / 150) * 18;
+          x += (dx / distance) * force;
+          y += (dy / distance) * force;
+        }
+
+        return { x, y };
+      });
+
+      for (let i = 0; i < positions.length; i++) {
+        const a = positions[i];
+
+        for (let j = i + 1; j < positions.length; j++) {
+          const b = positions[j];
+          const distance = Math.hypot(a.x - b.x, a.y - b.y);
+
+          if (distance > connectionDistance) continue;
+
+          const midpointX = (a.x + b.x) / 2;
+          const midpointY = (a.y + b.y) / 2;
+          const nearCursor =
+            !isStatic() &&
+            Math.hypot(
+              midpointX - pointer.x,
+              midpointY - pointer.y
+            ) < 180;
+
+          const opacity = (1 - distance / connectionDistance) *
+            (nearCursor ? 0.65 : 0.16);
+
+          ctx.strokeStyle = nearCursor
+            ? `rgba(52, 211, 153, ${opacity})`
+            : `rgba(163, 163, 163, ${opacity})`;
+
+          ctx.lineWidth = nearCursor ? 1 : 0.7;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+
+          // A few connections carry a moving "data" pulse.
+          if (!isStatic() && (i + j) % 11 === 0) {
+            const progress = (time * 0.16 + i * 0.13) % 1;
+            const fade = Math.sin(progress * Math.PI);
+
+            ctx.fillStyle = `rgba(110, 231, 183, ${fade * 0.65})`;
+            ctx.beginPath();
+            ctx.arc(
+              a.x + (b.x - a.x) * progress,
+              a.y + (b.y - a.y) * progress,
+              1.8,
+              0,
+              Math.PI * 2
+            );
+            ctx.fill();
+          }
+        }
+
+        const highlighted =
+          !isStatic() &&
+          Math.hypot(a.x - pointer.x, a.y - pointer.y) < 150;
+
+        ctx.fillStyle = highlighted
+          ? 'rgba(110, 231, 183, 0.85)'
+          : 'rgba(163, 163, 163, 0.4)';
+
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, highlighted ? 2.2 : 1.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function animate(now: number) {
+      // Limit drawing to roughly 30 FPS.
+      if (now - lastDraw >= 33) {
+        draw(now);
+        lastDraw = now;
+      }
+
+      frame = requestAnimationFrame(animate);
+    }
+
+    function restart() {
+      cancelAnimationFrame(frame);
+      pointer = { x: -1000, y: -1000 };
+      draw(performance.now());
+
+      if (!isStatic() && !document.hidden) {
+        frame = requestAnimationFrame(animate);
+      }
+    }
+
+    function movePointer(event: PointerEvent) {
+      if (event.pointerType === 'touch') return;
+      pointer = { x: event.clientX, y: event.clientY };
+    }
+
+    function clearPointer() {
+      pointer = { x: -1000, y: -1000 };
+    }
 
     resize();
-    window.addEventListener('pointermove', move, { passive: true });
-    document.documentElement.addEventListener('pointerleave', leave);
-    window.addEventListener('blur', leave);
-    window.addEventListener('resize', resize, { passive: true });
-    document.addEventListener('visibilitychange', visibilityChanged);
-    motion.addEventListener('change', preferenceChanged);
-    pointer.addEventListener('change', preferenceChanged);
-    return () => {
-      disposed = true;
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener('pointermove', move);
-      document.documentElement.removeEventListener('pointerleave', leave);
-      window.removeEventListener('blur', leave);
-      window.removeEventListener('resize', resize);
-      document.removeEventListener('visibilitychange', visibilityChanged);
-      motion.removeEventListener('change', preferenceChanged);
-      pointer.removeEventListener('change', preferenceChanged);
-    };
-  }, [theme]);
+    restart();
 
-  return <div className="interactive-background" aria-hidden="true"><canvas ref={canvasRef} /></div>;
+    window.addEventListener('resize', resize);
+    window.addEventListener('pointermove', movePointer, { passive: true });
+    window.addEventListener('blur', clearPointer);
+    document.documentElement.addEventListener('pointerleave', clearPointer);
+    document.addEventListener('visibilitychange', restart);
+    motionQuery.addEventListener('change', restart);
+    touchQuery.addEventListener('change', restart);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('pointermove', movePointer);
+      window.removeEventListener('blur', clearPointer);
+      document.documentElement.removeEventListener('pointerleave', clearPointer);
+      document.removeEventListener('visibilitychange', restart);
+      motionQuery.removeEventListener('change', restart);
+      touchQuery.removeEventListener('change', restart);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 -z-10 h-full w-full"
+    />
+  );
 }
