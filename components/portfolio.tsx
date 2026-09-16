@@ -548,13 +548,13 @@ function Hero() {
           <motion.div {...enter(0.26)} className="mt-8 flex flex-col gap-3 sm:flex-row">
       <a
   href="#contact"
-  className="glow-button inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl border border-neutral-700 bg-neutral-950 px-6 py-3 text-base font-medium text-white!"
+  className="glow-button inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl px-6 py-3 text-base font-medium text-white!"
 >
   Book a free automation audit <ArrowRight size={17} />
 </a>
-            <a
+           <a
   href="#work"
-  className="glow-button inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl border border-neutral-200 bg-white px-6 py-3 text-base font-medium text-neutral-950"
+  className="glow-button glow-button-light inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl px-6 py-3 text-base font-medium"
 >
   View my work <ChevronRight size={17} />
 </a>
