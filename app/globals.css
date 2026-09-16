@@ -719,12 +719,12 @@ button:disabled::before,
     a.text-link,
     a.glow-button
   ):not(.no-glow)::before {
-    animation: none !important;
+        animation: none !important;
     --portfolio-border-angle: 45deg;
   }
 }
-}
-  html[data-theme="dark"] .experience-company,
+
+html[data-theme="dark"] .experience-company,
 .credential-label,
 .education-seal,
 .education-award,
@@ -732,5 +732,4 @@ button:disabled::before,
 .experience-note-copy svg,
 .certificate-preview-copy svg {
   color: #6ee7b7;
-}
 }
