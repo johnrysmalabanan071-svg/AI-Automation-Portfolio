@@ -546,7 +546,7 @@ function Hero() {
             I help businesses eliminate repetitive manual work through AI-powered automation—from voice agents and CRM workflows to lead scoring systems. With a B.S. in Information Technology and experience in requirements analysis, technical troubleshooting, and process improvement, I build production-style systems with n8n, Make.com, Zapier, and AI APIs.
           </motion.p>
           <motion.div {...enter(0.26)} className="mt-8 flex flex-col gap-3 sm:flex-row">
-      <a
+     <a
   href="#contact"
   className="glow-button inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl px-6 py-3 text-base font-medium text-white!"
 >
