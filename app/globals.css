@@ -581,42 +581,119 @@ html[data-theme='dark'] .experience-company { color: #67e8f9; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   
-.glow-button {
-  position: relative;
-  overflow: hidden;
-  transition:
-    transform 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease !important;
+@property --glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
 
-.glow-button::after {
+/* Native buttons receive the effect automatically.
+   Add "glow-button" to links that look like buttons. */
+button:not(.no-glow),
+.glow-button {
+  --glow-angle: 0deg;
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+}
+
+/* Moving illuminated border */
+button:not(.no-glow)::before,
+.glow-button::before {
   content: "";
   position: absolute;
-  bottom: -5px;
-  left: 15%;
-  width: 70%;
-  height: 10px;
-  border-radius: 999px;
-  background: white;
-  filter: blur(7px);
-  opacity: 0;
+  inset: -2px;
+  z-index: 2;
+  padding: 2px;
+  border-radius: inherit;
   pointer-events: none;
+
+  background: conic-gradient(
+    from var(--glow-angle),
+    transparent 0deg,
+    transparent 245deg,
+    rgba(52, 211, 153, 0.25) 270deg,
+    #34d399 300deg,
+    #ffffff 325deg,
+    #34d399 345deg,
+    transparent 360deg
+  );
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+
+  opacity: 0;
   transition: opacity 0.25s ease;
 }
 
-.glow-button:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.9) !important;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.7),
-    0 0 12px rgba(255, 255, 255, 0.65),
-    0 0 28px rgba(0, 0, 0, 0.35),
-    0 12px 28px rgba(0, 0, 0, 0.25) !important;
+/* Soft glow outside the button */
+button:not(.no-glow)::after,
+.glow-button::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+
+  background: conic-gradient(
+    from var(--glow-angle),
+    transparent 0deg,
+    transparent 250deg,
+    rgba(52, 211, 153, 0.1) 275deg,
+    rgba(52, 211, 153, 0.7) 315deg,
+    rgba(255, 255, 255, 0.65) 330deg,
+    transparent 360deg
+  );
+
+  filter: blur(9px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
-.glow-button:hover::after {
+/* Start animation on hover or keyboard focus */
+button:not(.no-glow):hover::before,
+button:not(.no-glow):hover::after,
+button:not(.no-glow):focus-visible::before,
+button:not(.no-glow):focus-visible::after,
+.glow-button:hover::before,
+.glow-button:hover::after,
+.glow-button:focus-visible::before,
+.glow-button:focus-visible::after {
   opacity: 1;
+  animation: moving-button-glow 1.7s linear infinite;
 }
-  
+
+button:not(.no-glow):hover,
+.glow-button:hover {
+  box-shadow:
+    0 0 12px rgba(52, 211, 153, 0.3),
+    0 10px 25px rgba(0, 0, 0, 0.22);
+}
+
+@keyframes moving-button-glow {
+  from {
+    --glow-angle: 0deg;
+  }
+
+  to {
+    --glow-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button:not(.no-glow)::before,
+  button:not(.no-glow)::after,
+  .glow-button::before,
+  .glow-button::after {
+    animation: none !important;
+  }
+}  
 }
