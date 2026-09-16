@@ -716,7 +716,101 @@ button:disabled::before,
     --portfolio-border-angle: 360deg;
   }
 }
+/* =========================================
+   DISTINCT GLOW STYLES
+   ========================================= */
 
+/* 1. Default / Dark buttons → strong green glow */
+:is(
+  button,
+  a.button,
+  a.hero-cta,
+  a.experience-note,
+  a.glow-button
+):not(.no-glow):not(.hero-cta-light):not(.button-green):is(:hover, :focus-visible) {
+  box-shadow:
+    0 0 10px rgba(16, 185, 129, 0.45),
+    0 0 28px rgba(16, 185, 129, 0.25),
+    0 0 50px rgba(16, 185, 129, 0.12);
+}
+
+/* 2. Light / white buttons → cyan + soft white glow */
+a.hero-cta-light:is(:hover, :focus-visible),
+.button-small:is(:hover, :focus-visible),
+.button-secondary:is(:hover, :focus-visible) {
+  box-shadow:
+    0 0 12px rgba(34, 211, 238, 0.4),
+    0 0 28px rgba(34, 211, 238, 0.2),
+    0 0 45px rgba(255, 255, 255, 0.08);
+}
+
+/* 3. Green / emerald buttons → bright white glow */
+.button-green:is(:hover, :focus-visible),
+a.button-green:is(:hover, :focus-visible) {
+  box-shadow:
+    0 0 12px rgba(255, 255, 255, 0.55),
+    0 0 30px rgba(255, 255, 255, 0.28),
+    0 0 50px rgba(110, 231, 183, 0.15);
+}
+
+/* =========================================
+   UNDERLINE CTA STYLE
+   (Discuss your project / View case study)
+   ========================================= */
+
+.cta-underline {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  background: transparent;
+  border: none;
+  color: #f5f5f5;
+  font-size: 0.95rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  isolation: isolate;
+}
+
+.cta-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.5px;
+  background: linear-gradient(90deg, #10b981, #6ee7b7);
+  border-radius: 999px;
+  transform-origin: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+}
+
+.cta-underline:hover::after,
+.cta-underline:focus-visible::after {
+  transform: scaleX(1.05);
+  box-shadow:
+    0 0 10px rgba(16, 185, 129, 0.8),
+    0 0 22px rgba(16, 185, 129, 0.45);
+}
+
+.cta-underline svg {
+  transition: transform 0.25s ease;
+}
+
+.cta-underline:hover svg {
+  transform: translateX(4px);
+}
+
+/* Optional: make the underline slightly thicker on larger screens */
+@media (min-width: 768px) {
+  .cta-underline::after {
+    height: 2px;
+  }
+}
 /* Respect the visitor's reduced-motion preference */
 @media (prefers-reduced-motion: reduce) {
   :is(
