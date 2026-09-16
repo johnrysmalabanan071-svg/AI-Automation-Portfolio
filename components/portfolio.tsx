@@ -512,7 +512,6 @@ function Navigation() {
 
 function Hero() {
   const reduceMotion = useReducedMotion();
-  const [toolsPaused, setToolsPaused] = useState(false);
   const enter = (delay: number) => ({
     initial: reduceMotion ? false as const : { opacity: 0, y: 12 },
     animate: { opacity: 1, y: 0 },
@@ -562,21 +561,18 @@ function Hero() {
         </div>
 
         <motion.div {...enter(0.32)} className="relative mt-12 border-t border-neutral-100 pt-6 sm:mt-16">
-          <div className="mb-5 flex items-center justify-between gap-4">
-            <p className="text-base font-medium text-neutral-800">Tools I use</p>
-            {!reduceMotion && (
-              <button type="button" onClick={() => setToolsPaused(!toolsPaused)} aria-pressed={toolsPaused} aria-label={toolsPaused ? 'Resume scrolling tools' : 'Pause scrolling tools'} className="rounded-lg border border-neutral-200 px-3 py-2 text-xs text-neutral-600 transition hover:border-neutral-400 hover:text-neutral-950 focus-visible:outline-emerald-700!">
-                {toolsPaused ? 'Resume' : 'Pause'}
-              </button>
-            )}
-          </div>
+         <p className="mb-5 text-base font-medium text-neutral-800">
+              My Automation Stack
+        </p>
           <div className="group overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]" aria-label="Automation tools and technologies">
-            <div className={reduceMotion ? 'flex flex-wrap justify-center gap-6 py-3' : 'flex w-max animate-tools-drift group-hover:[animation-play-state:paused]!'} style={reduceMotion ? undefined : { animationPlayState: toolsPaused ? 'paused' : 'running' }}>
+            <div className={ reduceMotion? 'flex flex-wrap justify-center gap-6 py-3' : 'flex w-max animate-tools-drift group-hover:[animation-play-state:paused]!'
+             }
+              >
               {(reduceMotion ? [0] : [0, 1]).map((copy) => (
                 <div key={copy} aria-hidden={copy === 1 ? true : undefined} className={reduceMotion ? 'contents' : 'flex shrink-0 items-center gap-10 py-3 pr-10 sm:gap-14 sm:pr-14'}>
                   {tools.map(({ name, image, icon: Icon }) => (
                     <div key={name} className="flex shrink-0 items-center gap-3 whitespace-nowrap text-lg font-semibold tracking-tight text-neutral-700">
-                      {image ? <img src={`/tool-icons/${image}`} alt="" width={30} height={30} className="h-8 w-8 object-contain grayscale" /> : Icon ? <Icon size={28} className="text-neutral-600!" aria-hidden="true" /> : null}
+                      {image ? <img src={`/tool-icons/${image}`} alt="" width={30} height={30} className="h-8 w-8 object-contain" /> : Icon ? <Icon size={28} className="text-neutral-600!" aria-hidden="true" /> : null}
                       <span>{name}</span>
                     </div>
                   ))}
@@ -696,7 +692,7 @@ function Services() {
                 <h3 className="service-title mt-8 font-semibold tracking-tight">{title}</h3>
                 <p className="service-copy mt-4 text-sm leading-6 text-[var(--muted)]">{description}</p>
                 <div className="service-benefit mt-7 flex items-center gap-2 border-t border-[var(--border)] pt-5 text-sm font-semibold">
-                  <Check size={15} className="text-cyan-500" /> {benefit}
+                  <Check size={15} className="text-emerald-400" /> {benefit}
                 </div>
               </motion.article>
             </Reveal>
@@ -774,7 +770,7 @@ function Projects() {
                   <div className="mt-7 grid grid-cols-3 gap-3 border-y border-[var(--border)] py-5">
                     {project.highlights.map((highlight) => (
                       <div key={highlight} className="flex flex-col gap-2">
-                        <CheckCircle2 size={16} className="text-cyan-500" />
+                        <CheckCircle2 size={16} className="text-emerald-400" />
                         <p className="text-[10px] font-semibold leading-4 text-[var(--muted)] sm:text-xs">{highlight}</p>
                       </div>
                     ))}
@@ -845,7 +841,7 @@ function Tools() {
             ['04', 'Optimize', 'Measure, monitor, and improve.'],
           ].map(([number, title, copy]) => (
             <div key={number} className="process-step">
-              <span className="font-mono text-xs text-cyan-500">{number}</span>
+              <span className="font-mono text-xs text-emerald-400">{number}</span>
               <h3 className="mt-4 font-semibold">{title}</h3>
               <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{copy}</p>
             </div>
@@ -958,21 +954,21 @@ function Contact() {
           <div className="contact-glow" />
           <div className="relative z-10 grid gap-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-20">
             <Reveal>
-              <p className="eyebrow text-cyan-300">Start a conversation</p>
+              <p className="eyebrow text-emerald-300">Start a conversation</p>
               <h2 className="mt-5 text-balance text-4xl font-semibold leading-[1.05] tracking-[-.04em] text-white sm:text-5xl">What would change if the busywork disappeared?</h2>
               <p className="mt-6 max-w-xl text-base leading-7 text-slate-300">Bring me the process that is slow, fragile, or stealing your team&apos;s attention. I&apos;ll help you see what to automate first—and what not to.</p>
               <div className="mt-9 space-y-4 text-sm text-slate-300">
                 <div className="flex items-center gap-3"><span className="contact-icon"><CalendarDays size={17} /></span> Free 30-minute automation audit</div>
-                <a href="mailto:johnrysclanor22@gmail.com" className="flex items-center gap-3 transition-colors hover:text-cyan-300"><span className="contact-icon"><Mail size={17} /></span> johnrysclanor22@gmail.com</a>
+                <a href="mailto:johnrysclanor22@gmail.com" className="flex items-center gap-3 transition-colors hover:text-emerald-300"><span className="contact-icon"><Mail size={17} /></span> johnrysclanor22@gmail.com</a>
                 <div className="flex items-center gap-3"><span className="contact-icon"><MapPin size={17} /></span> Lipa City, Batangas · Available worldwide</div>
-                <a href="https://www.linkedin.com/in/john-rys-clanor-1b9828312" target="_blank" rel="noreferrer" className="flex items-center gap-3 transition-colors hover:text-cyan-300"><span className="contact-icon"><Linkedin size={17} /></span> Connect on LinkedIn</a>
+                <a href="https://www.linkedin.com/in/john-rys-clanor-1b9828312" target="_blank" rel="noreferrer" className="flex items-center gap-3 transition-colors hover:text-emerald-300"><span className="contact-icon"><Linkedin size={17} /></span> Connect on LinkedIn</a>
               </div>
             </Reveal>
             <Reveal delay={0.12}>
               <form className="contact-form" onSubmit={handleSubmit}>
                 {submitted ? (
                   <div className="grid min-h-[390px] place-items-center text-center" role="status">
-                    <div><span className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-emerald-400/15 text-emerald-300"><CheckCircle2 size={28} /></span><h3 className="mt-6 text-2xl font-semibold text-white">You&apos;re on the radar.</h3><p className="mx-auto mt-3 max-w-sm text-sm leading-6 text-slate-300">Thanks for reaching out. This demo form is ready to connect to your inbox or CRM.</p><button type="button" onClick={() => setSubmitted(false)} className="mt-6 text-sm font-semibold text-cyan-300">Send another message</button></div>
+                    <div><span className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-emerald-400/15 text-emerald-300"><CheckCircle2 size={28} /></span><h3 className="mt-6 text-2xl font-semibold text-white">You&apos;re on the radar.</h3><p className="mx-auto mt-3 max-w-sm text-sm leading-6 text-slate-300">Thanks for reaching out. This demo form is ready to connect to your inbox or CRM.</p><button type="button" onClick={() => setSubmitted(false)} className="mt-6 text-sm font-semibold text-emerald-300">Send another message</button></div>
                   </div>
                 ) : (
                   <>
