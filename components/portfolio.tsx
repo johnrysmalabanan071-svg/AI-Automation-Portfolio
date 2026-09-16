@@ -1006,7 +1006,9 @@ function Footer() {
 
 export function Portfolio() {
   return (
-    <main className={`site-shell min-h-screen overflow-clip bg-[var(--bg)] text-[var(--text)] ${portfolioVisual}`}>
+    <main
+      className={`site-shell relative isolate min-h-screen overflow-clip bg-[var(--bg)] text-[var(--text)] ${portfolioVisual}`}
+    >
       <InteractiveBackground theme="dark" />
       <Navigation />
       <Hero />
