@@ -791,16 +791,39 @@ function Projects() {
               </div>
               <div className="mt-9 border-t border-[var(--border)] pt-8">
                 <p className="eyebrow text-[10px]">What this project demonstrates</p>
-                <div className="demonstrates-grid mt-5"> {selected.demonstrates.map((item) => (
-                <div key={item} className="demonstrates-item"> <Check size={15} /> <span>{item}</span> </div>
-                ))}
-              </div>
-              </div>
-              <div className="impact-estimate">
-                <div className="impact-estimate-heading"><span>Potential time saved</span><strong>{selected.timeSaved}</strong></div>
-                <p>{selected.impact}</p>
-                <small>Illustrative estimate based on a recurring workload. Actual savings depend on process volume, complexity, and team adoption.</small>
-              </div>
+                <div
+  className="mt-5"
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+    gridAutoRows: '1fr',
+    gap: '16px',
+  }}
+>
+  {selected.demonstrates.map((item) => (
+    <div
+      key={item}
+      className="demonstrates-item"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        minHeight: '96px',
+        padding: '20px 24px',
+        margin: 0,
+        boxSizing: 'border-box',
+      }}
+    >
+      <Check
+        size={16}
+        style={{ flexShrink: 0, marginTop: 0 }}
+      />
+      <span style={{ minWidth: 0, overflowWrap: 'anywhere' }}>
+        {item}
+      </span>
+    </div>
+  ))}
+</div>
               <a href="#contact" onClick={() => setSelected(null)} className="glow-button button button-primary mt-9">Build a system like this <ArrowRight size={17} /></a>
             </motion.div>
           </motion.div>
