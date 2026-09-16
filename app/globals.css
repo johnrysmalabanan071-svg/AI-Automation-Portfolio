@@ -834,4 +834,43 @@ html[data-theme="dark"] .experience-company,
 .experience-note-copy svg,
 .certificate-preview-copy svg {
   color: #6ee7b7;
+
+  /* Proper shape for the three text-link buttons */
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+
+  width: fit-content;
+  max-width: 100%;
+  min-height: 46px;
+  padding: 0.75rem 1.2rem;
+
+  border: 1px solid rgba(110, 231, 183, 0.25);
+  border-radius: 999px;
+  background: #141414;
+  color: #f5f5f5;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.4;
+
+  position: relative;
+  isolation: isolate;
+}
+
+/* Keep the existing glow inside the rounded border */
+.text-link::before {
+  inset: 0;
+  border-radius: inherit;
+}
+
+.text-link svg {
+  flex-shrink: 0;
+}
+
+.text-link:hover {
+  background: #1b2420;
+  border-color: #6ee7b7;
+}
 }
