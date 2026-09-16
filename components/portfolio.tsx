@@ -542,20 +542,17 @@ function Hero() {
             Turning Manual Work into Automated Systems.
           </motion.h1>
           <motion.p {...enter(0.2)} className="mt-5 max-w-4xl text-base leading-[1.75] text-neutral-600 sm:text-lg">
-            I help businesses eliminate repetitive manual work through AI-powered automation—from voice agents and CRM workflows to lead scoring systems. With a B.S. in Information Technology and experience in requirements analysis, technical troubleshooting, and process improvement, I build production-style systems with n8n, Make.com, Zapier, and AI APIs.
-          </motion.p>
+  I help businesses eliminate repetitive manual work through AI-powered automation—from voice agents and CRM workflows to lead scoring systems. With a B.S. in Information Technology and hands-on experience building production systems, I turn messy processes into reliable, scalable automation.
+</motion.p>
           <motion.div {...enter(0.26)} className="mt-8 flex flex-col gap-3 sm:flex-row">
-     <a
-  href="#contact"
-  className="glow-button inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl px-6 py-3 text-base font-medium text-white!"
->
-  Book a free automation audit <ArrowRight size={17} />
+     <a href="#contact" className="hero-cta hero-cta-dark">
+  Book a free automation audit
+  <ArrowRight size={17} />
 </a>
-           <a
-  href="#work"
-  className="glow-button glow-button-light inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl px-6 py-3 text-base font-medium"
->
-  View my work <ChevronRight size={17} />
+
+<a href="#work" className="hero-cta hero-cta-light">
+  View my work
+  <ChevronRight size={17} />
 </a>
           </motion.div>
         </div>
