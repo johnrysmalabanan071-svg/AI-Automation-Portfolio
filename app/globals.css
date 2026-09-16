@@ -877,4 +877,59 @@ html[data-theme="dark"] .experience-company,
   height: auto !important;
   min-height: 64px;
 }
+  /* Consistent rounded action buttons */
+.portfolio-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+
+  min-height: 48px;
+  max-width: 100%;
+  padding: 0.8rem 1.25rem;
+  border: 1px solid #34453d;
+  border-radius: 999px;
+
+  background: #161b18;
+  color: #f5f5f5;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.portfolio-action svg {
+  flex-shrink: 0;
+}
+
+.portfolio-action:hover {
+  background: #202b25;
+  border-color: #6ee7b7;
+}
+
+/* Stronger contrast for moving borders on emerald surfaces.
+   Reuses the existing portfolio-border-spin animation. */
+:is(
+  .button-primary,
+  .button-contact,
+  .button-small,
+  .certificate-filters button[aria-pressed="true"]
+):not(.no-glow)::before {
+  padding: 3px !important;
+  opacity: 1 !important;
+
+  background: conic-gradient(
+    from var(--portfolio-border-angle),
+    transparent 0deg,
+    transparent 215deg,
+    #065f46 260deg,
+    #022c22 285deg,
+    #ffffff 310deg,
+    #ffffff 325deg,
+    #065f46 345deg,
+    transparent 360deg
+  ) !important;
+}
 }
