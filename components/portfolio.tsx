@@ -462,50 +462,41 @@ function SectionHeading({ eyebrow, title, copy, align = 'left' }: { eyebrow: str
 }
 
 function Navigation() {
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [open]);
-
   return (
     <header className="site-nav">
-      <nav className="nav-capsule mx-auto flex h-[64px] max-w-7xl items-center justify-between px-4 sm:px-5" aria-label="Main navigation">
-        <a href="#top" className="group flex items-center gap-3 font-semibold tracking-tight" aria-label="John Rys Clanor, home">
+      <nav
+        className="nav-capsule menu-free-nav mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-5"
+        aria-label="Main navigation"
+      >
+        <a
+          href="#top"
+          className="flex shrink-0 items-center gap-3 font-semibold tracking-tight"
+          aria-label="John Rys Clanor, home"
+        >
           <span className="brand-mark">JR</span>
           <span className="hidden sm:inline">John Rys Clanor</span>
         </a>
-        <div className="hidden items-center gap-7 lg:flex">
+
+        <div className="order-last flex w-full min-w-0 items-center gap-5 overflow-x-auto py-2 lg:order-none lg:w-auto">
           {navItems.map((item) => (
-            <a key={item.href} href={item.href} className="nav-link">{item.label}</a>
+            <a
+              key={item.href}
+              href={item.href}
+              className="nav-link shrink-0 whitespace-nowrap"
+            >
+              {item.label}
+            </a>
           ))}
         </div>
-        <div className="flex items-center gap-2">
-          <a href="#contact" className="glow-button button button-small hidden sm:inline-flex">Let&apos;s talk <ArrowRight size={15} /></a>
-          <button type="button" className="icon-button lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu" aria-expanded={open}>
-            <Menu size={19} />
-          </button>
-        </div>
+
+        <a
+          href="#contact"
+          className="button button-small shrink-0"
+        >
+          Let&apos;s talk
+          <ArrowRight size={15} />
+        </a>
       </nav>
-      <AnimatePresence>
-        {open && (
-          <motion.div className="mobile-menu lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-semibold">Navigate</span>
-              <button type="button" className="icon-button" onClick={() => setOpen(false)} aria-label="Close menu"><X size={19} /></button>
-            </div>
-            <div className="mt-10 flex flex-col">
-              {navItems.map((item, index) => (
-                <motion.a key={item.href} href={item.href} onClick={() => setOpen(false)} className="mobile-nav-link" initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.045 }}>
-                  <span className="font-mono text-xs text-[var(--muted)]">0{index + 1}</span>{item.label}<ArrowRight size={20} className="ml-auto" />
-                </motion.a>
-              ))}
-            </div>
-            <a href="#contact" onClick={() => setOpen(false)} className="button mt-10 w-full">Book a free automation audit <ArrowRight size={17} /></a>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
   );
 }
