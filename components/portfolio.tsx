@@ -482,7 +482,7 @@ function Navigation() {
           ))}
         </div>
         <div className="flex items-center gap-2">
-          <a href="#contact" className="button button-small hidden sm:inline-flex">Let&apos;s talk <ArrowRight size={15} /></a>
+          <a href="#contact" className="glow-button button button-small hidden sm:inline-flex">Let&apos;s talk <ArrowRight size={15} /></a>
           <button type="button" className="icon-button lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu" aria-expanded={open}>
             <Menu size={19} />
           </button>
@@ -546,15 +546,18 @@ function Hero() {
             I help businesses eliminate repetitive manual work through AI-powered automation—from voice agents and CRM workflows to lead scoring systems. With a B.S. in Information Technology and experience in requirements analysis, technical troubleshooting, and process improvement, I build production-style systems with n8n, Make.com, Zapier, and AI APIs.
           </motion.p>
           <motion.div {...enter(0.26)} className="mt-8 flex flex-col gap-3 sm:flex-row">
-       <a
+      <a
   href="#contact"
   className="glow-button inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl border border-neutral-700 bg-neutral-950 px-6 py-3 text-base font-medium text-white!"
 >
   Book a free automation audit <ArrowRight size={17} />
 </a>
-            <a href="#work" className="inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl border border-neutral-200 bg-white px-6 py-3 text-base font-medium text-neutral-950 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-neutral-400 hover:bg-neutral-50 focus-visible:outline-emerald-700!">
-              View my work <ChevronRight size={17} className="text-neutral-700!" />
-            </a>
+            <a
+  href="#work"
+  className="glow-button inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl border border-neutral-200 bg-white px-6 py-3 text-base font-medium text-neutral-950"
+>
+  View my work <ChevronRight size={17} />
+</a>
           </motion.div>
         </div>
 
@@ -810,7 +813,7 @@ function Projects() {
                 <p>{selected.impact}</p>
                 <small>Illustrative estimate based on a recurring workload. Actual savings depend on process volume, complexity, and team adoption.</small>
               </div>
-              <a href="#contact" onClick={() => setSelected(null)} className="button button-primary mt-9">Build a system like this <ArrowRight size={17} /></a>
+              <a href="#contact" onClick={() => setSelected(null)} className="glow-button button button-primary mt-9">Build a system like this <ArrowRight size={17} /></a>
             </motion.div>
           </motion.div>
         )}
@@ -978,7 +981,7 @@ function Contact() {
                       <label className="field-label">Work email<input required type="email" name="email" autoComplete="email" className="field" placeholder="you@company.com" /></label>
                     </div>
                     <label className="field-label mt-5">What would you like to automate?<textarea required name="message" className="field min-h-36 resize-y" placeholder="A quick overview of the workflow, bottleneck, or goal..." /></label>
-                    <button type="submit" className="button button-contact mt-6 w-full">Request my free audit <ArrowRight size={17} /></button>
+                    <button type="submit" className="glow-button button button-contact mt-6 w-full">Request my free audit <ArrowRight size={17} /></button>
                     <p className="mt-4 text-center text-xs text-slate-400">No sales script. Just a practical conversation about your systems.</p>
                   </>
                 )}
