@@ -614,7 +614,6 @@ function About() {
           <p className="section-copy mt-5">
             I earned a B.S. in Information Technology from Batangas State University and bring client-facing requirements analysis, technical troubleshooting, production briefing, project estimation, and resource-planning experience to every build. I now apply that foundation to automation systems across n8n, Make.com, Zapier, GoHighLevel, and OpenAI, Claude, or Gemini APIs.
           </p>
-          <a href="#contact" className="text-link mt-8">Tell me what&apos;s slowing you down <ArrowRight size={16} /></a>
           <a href="#contact" className="portfolio-action glow-button mt-8" style={actionButtonStyle}>
             <span style={{ minWidth: 0 }}>Tell me what&apos;s slowing you down</span>
             <ArrowRight size={16} style={{ flexShrink: 0 }} />
@@ -747,7 +746,6 @@ function Projects() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <SectionHeading eyebrow="Automation portfolio" title="Complex workflows, mapped from trigger to outcome." copy="Eleven self-directed automation builds organized across n8n, Make.com, and Zapier. Each case study demonstrates workflow architecture, AI integration, validation, routing, and human checkpoints. The time-savings ranges are illustrative estimates—not client results." />
-          <a href="#contact" className="portfolio-action glow-button shrink-0"> Discuss your project <ArrowRight size={16} /> </a>
           <a href="#contact" className="portfolio-action glow-button shrink-0" style={actionButtonStyle}>
             <span style={{ minWidth: 0 }}>Discuss your project</span>
             <ArrowRight size={16} style={{ flexShrink: 0 }} />
@@ -798,8 +796,7 @@ function Projects() {
                         <p className="text-[10px] font-semibold leading-4 text-[var(--muted)] sm:text-xs">{highlight}</p>
                       </div>
                     ))}
-                  </div>
-                  <button type="button" onClick={() => setSelected(project)} className="portfolio-action glow-button mt-7 self-start"> View case study <ArrowRight size={16} /> </button>
+                  </div> 
                   <button type="button" onClick={() => setSelected(project)} className="portfolio-action glow-button mt-7 self-start" style={actionButtonStyle}>
                     <span style={{ minWidth: 0 }}>View case study</span>
                     <ArrowRight size={16} style={{ flexShrink: 0 }} />
