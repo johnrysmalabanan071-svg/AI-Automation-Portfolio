@@ -487,9 +487,10 @@ function Navigation() {
               {item.label}
             </a>
           ))}
-        </div>
+</div>
+</div>
 
-        <a
+<a
           href="#contact"
           className="button button-small shrink-0"
         >
