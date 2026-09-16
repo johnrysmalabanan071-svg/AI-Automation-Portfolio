@@ -23,7 +23,6 @@ import {
   Layers3,
   Linkedin,
   Mail,
-  Menu,
   MapPin,
   Network,
   Sparkles,
@@ -487,8 +486,8 @@ function Navigation() {
               {item.label}
             </a>
           ))}
-</div>
-<a
+        </div>
+        <a
           href="#contact"
           className="button button-small shrink-0"
         >
@@ -791,38 +790,36 @@ function Projects() {
               <div className="mt-9 border-t border-[var(--border)] pt-8">
                 <p className="eyebrow text-[10px]">What this project demonstrates</p>
                 <div
-  className="mt-5"
-  style={{
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
-    gridAutoRows: '1fr',
-    gap: '16px',
-  }}
->
-  {selected.demonstrates.map((item) => (
-    <div
-      key={item}
-      className="demonstrates-item"
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-        minHeight: '96px',
-        padding: '20px 24px',
-        margin: 0,
-        boxSizing: 'border-box',
-      }}
-    >
-      <Check
-        size={16}
-        style={{ flexShrink: 0, marginTop: 0 }}
-      />
-      <span style={{ minWidth: 0, overflowWrap: 'anywhere' }}>
-        {item}
-      </span>
-    </div>
-  ))}
-</div>
+                  className="mt-5"
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+                    gridAutoRows: '1fr',
+                    gap: '16px',
+                  }}
+                >
+                  {selected.demonstrates.map((item) => (
+                    <div
+                      key={item}
+                      className="demonstrates-item"
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        minHeight: '96px',
+                        padding: '20px 24px',
+                        margin: 0,
+                        boxSizing: 'border-box',
+                      }}
+                    >
+                      <Check size={16} style={{ flexShrink: 0, marginTop: 0 }} />
+                      <span style={{ minWidth: 0, overflowWrap: 'anywhere' }}>
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
               <a
                 href="#contact"
                 onClick={() => setSelected(null)}
