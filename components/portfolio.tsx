@@ -1,6 +1,5 @@
 'use client';
 
-import type { FormEvent, ReactNode } from 'react';
 import type { CSSProperties, FormEvent, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
