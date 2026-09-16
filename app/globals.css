@@ -658,4 +658,13 @@ html[data-theme='dark'] .experience-company { color: #67e8f9; }
     animation: none;
   }
 }
+  html[data-theme="dark"] .experience-company,
+.credential-label,
+.education-seal,
+.education-award,
+.contact-icon,
+.experience-note-copy svg,
+.certificate-preview-copy svg {
+  color: #6ee7b7;
+}
 }
