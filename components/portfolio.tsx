@@ -791,9 +791,10 @@ function Projects() {
               </div>
               <div className="mt-9 border-t border-[var(--border)] pt-8">
                 <p className="eyebrow text-[10px]">What this project demonstrates</p>
-                <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                  {selected.demonstrates.map((item) => <div key={item} className="demonstrates-item"><Check size={15} /> <span>{item}</span></div>)}
-                </div>
+                <div className="demonstrates-grid mt-5"> {selected.demonstrates.map((item) => (
+                <div key={item} className="demonstrates-item"> <Check size={15} /> <span>{item}</span> </div>
+                ))}
+              </div>
               </div>
               <div className="impact-estimate">
                 <div className="impact-estimate-heading"><span>Potential time saved</span><strong>{selected.timeSaved}</strong></div>
