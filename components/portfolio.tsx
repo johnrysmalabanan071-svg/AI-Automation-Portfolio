@@ -547,13 +547,11 @@ function Hero() {
           </motion.p>
           <motion.div {...enter(0.26)} className="mt-8 flex flex-col gap-3 sm:flex-row">
            <a
-              href="#contact"
-              className="glow-button inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl border border-neutral-700 bg-neutral-950 px-6 py-3 text-base font-medium text-white! shadow-[inset_0_1px_2px_rgba(255,255,255,0.3),0_5px_12px_rgba(0,0,0,0.14)] transition duration-300 hover:-translate-y-0.5 hover:bg-neutral-800 focus-visible:outline-emerald-700!"
+            href="#contact"
+            className="glow-button inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl border border-neutral-700 bg-neutral-950 px-6 py-3 text-base font-medium text-white! shadow-[inset_0_1px_2px_rgba(255,255,255,0.3),0_5px_12px_rgba(0,0,0,0.14)] transition duration-300 hover:-translate-y-0.5 hover:bg-neutral-800 focus-visible:outline-emerald-700!"
           >
-              Book a free automation audit <ArrowRight size={17} />
-          </a>
-              Book a free automation audit <ArrowRight size={17} />
-            </a>
+            Book a free automation audit <ArrowRight size={17} />
+    </a>
             <a href="#work" className="inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl border border-neutral-200 bg-white px-6 py-3 text-base font-medium text-neutral-950 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-neutral-400 hover:bg-neutral-50 focus-visible:outline-emerald-700!">
               View my work <ChevronRight size={17} className="text-neutral-700!" />
             </a>
