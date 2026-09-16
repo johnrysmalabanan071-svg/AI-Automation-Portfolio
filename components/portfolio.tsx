@@ -718,7 +718,7 @@ function Projects() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <SectionHeading eyebrow="Automation portfolio" title="Complex workflows, mapped from trigger to outcome." copy="Eleven self-directed automation builds organized across n8n, Make.com, and Zapier. Each case study demonstrates workflow architecture, AI integration, validation, routing, and human checkpoints. The time-savings ranges are illustrative estimates—not client results." />
-          <a href="#contact" className="text-link shrink-0">Discuss your project <ArrowRight size={16} /></a>
+          <a href="#contact" className="portfolio-action glow-button shrink-0"> Discuss your project <ArrowRight size={16} /> </a>
         </Reveal>
         <Reveal delay={0.08} className="mt-12">
           <div className="project-category-tabs" role="tablist" aria-label="Filter automation projects by platform">
@@ -766,7 +766,7 @@ function Projects() {
                       </div>
                     ))}
                   </div>
-                  <button type="button" onClick={() => setSelected(project)} className="cta-underline mt-7 self-start"> View case study <ArrowRight size={16} /> </button>
+                  <button type="button" onClick={() => setSelected(project)} className="portfolio-action glow-button mt-7 self-start"> View case study <ArrowRight size={16} /> </button>
                 </div>
               </article>
             </Reveal>
