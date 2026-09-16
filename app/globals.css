@@ -873,4 +873,8 @@ html[data-theme="dark"] .experience-company,
   background: #1b2420;
   border-color: #6ee7b7;
 }
+  .site-nav .menu-free-nav {
+  height: auto !important;
+  min-height: 64px;
+}
 }
