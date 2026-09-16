@@ -4,7 +4,7 @@ import type { FormEvent, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
-import { InteractiveBackground } from './interactive-background';
+import { NeuralBackground } from './neural-background';
 import { portfolioVisual } from './portfolio-visual';
 import {
   ArrowRight,
@@ -1009,7 +1009,7 @@ export function Portfolio() {
     <main
       className={`site-shell relative isolate min-h-screen overflow-clip bg-[var(--bg)] text-[var(--text)] ${portfolioVisual}`}
     >
-      <InteractiveBackground theme="dark" />
+      <NeuralBackground  />
       <Navigation />
       <Hero />
       <About />
