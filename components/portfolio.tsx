@@ -824,7 +824,14 @@ function Projects() {
     </div>
   ))}
 </div>
-              <a href="#contact" onClick={() => setSelected(null)} className="glow-button button button-primary mt-9">Build a system like this <ArrowRight size={17} /></a>
+              <a
+                href="#contact"
+                onClick={() => setSelected(null)}
+                className="button button-primary glow-button mt-9"
+              >
+                Build a system like this
+                <ArrowRight size={17} />
+              </a>
             </motion.div>
           </motion.div>
         )}
