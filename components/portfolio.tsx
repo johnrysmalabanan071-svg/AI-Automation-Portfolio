@@ -545,14 +545,16 @@ function Hero() {
   I help businesses eliminate repetitive manual work through AI-powered automation—from voice agents and CRM workflows to lead scoring systems. With a B.S. in Information Technology and hands-on experience building production systems, I turn messy processes into reliable, scalable automation.
 </motion.p>
           <motion.div {...enter(0.26)} className="mt-8 flex flex-col gap-3 sm:flex-row">
-     <a href="#contact" className="hero-cta hero-cta-dark">
-  Book a free automation audit
-  <ArrowRight size={17} />
+     <a
+  href="#contact"
+  className="hero-cta hero-cta-dark button mt-10 w-full"
+  onClick={() => setOpen(false)}
+>
+  Book a free automation audit <ArrowRight size={17} />
 </a>
 
-<a href="#work" className="hero-cta hero-cta-light">
-  View my work
-  <ChevronRight size={17} />
+<a href="#work" class="hero-cta hero-cta-light">
+  View my work →
 </a>
           </motion.div>
         </div>
@@ -772,7 +774,7 @@ function Projects() {
                       </div>
                     ))}
                   </div>
-                  <button type="button" onClick={() => setSelected(project)} className="text-link mt-7 self-start">View case study <ArrowRight size={16} /></button>
+                  <button type="button" onClick={() => setSelected(project)} className="cta-underline mt-7 self-start"> View case study <ArrowRight size={16} /> </button>
                 </div>
               </article>
             </Reveal>
