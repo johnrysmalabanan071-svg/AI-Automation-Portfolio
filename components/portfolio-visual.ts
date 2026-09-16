@@ -80,7 +80,7 @@ export const portfolioVisual = `
   [&_.impact-estimate]:border-emerald-300/25! [&_.impact-estimate]:bg-neutral-800/50!
   [&_.impact-estimate-heading_span]:text-neutral-400! [&_.modal-backdrop]:bg-black/75!
   [&_.tool-card]:rounded-2xl! [&_.tool-card]:border-white/10! [&_.tool-card]:shadow-none!
-  [&_.tool-mark]:text-neutral-300! [&_.tool-mark-brand]:bg-neutral-200! [&_.tool-logo]:grayscale
+  [&_.tool-mark]:text-neutral-300! [&_.tool-mark-brand]:bg-neutral-200! 
   [&_.certifications-section]:rounded-3xl! [&_.certifications-section]:border-white/10!
   [&_.certifications-section:before]:grayscale [&_.certifications-section:before]:opacity-40
   [&_.certifications-heading_h2]:text-[clamp(2.25rem,4.2vw,3.75rem)]! [&_.certifications-heading_h2]:leading-[1.12]!
