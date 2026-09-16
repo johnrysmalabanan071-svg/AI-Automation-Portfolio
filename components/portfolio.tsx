@@ -1,6 +1,7 @@
 'use client';
 
 import type { FormEvent, ReactNode } from 'react';
+import type { CSSProperties, FormEvent, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
@@ -32,6 +33,33 @@ import {
   X,
   type LucideIcon,
 } from 'lucide-react';
+
+// Shared layout keeps action buttons consistent even without extra CSS utilities.
+const actionButtonStyle: CSSProperties = {
+  display: 'inline-flex',
+  flexDirection: 'row',
+  flexWrap: 'nowrap',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '12px',
+  width: 'fit-content',
+  maxWidth: '100%',
+  minHeight: '48px',
+  padding: '14px 22px',
+  boxSizing: 'border-box',
+  border: '1px solid rgba(110, 231, 183, 0.3)',
+  borderRadius: '999px',
+  background: '#161b18',
+  color: '#f5f5f5',
+  fontSize: '15px',
+  fontWeight: 600,
+  lineHeight: 1.5,
+  textAlign: 'center',
+  textDecoration: 'none',
+  position: 'relative',
+  isolation: 'isolate',
+  cursor: 'pointer',
+};
 
 type Service = {
   icon: LucideIcon;
@@ -588,6 +616,10 @@ function About() {
             I earned a B.S. in Information Technology from Batangas State University and bring client-facing requirements analysis, technical troubleshooting, production briefing, project estimation, and resource-planning experience to every build. I now apply that foundation to automation systems across n8n, Make.com, Zapier, GoHighLevel, and OpenAI, Claude, or Gemini APIs.
           </p>
           <a href="#contact" className="text-link mt-8">Tell me what&apos;s slowing you down <ArrowRight size={16} /></a>
+          <a href="#contact" className="portfolio-action glow-button mt-8" style={actionButtonStyle}>
+            <span style={{ minWidth: 0 }}>Tell me what&apos;s slowing you down</span>
+            <ArrowRight size={16} style={{ flexShrink: 0 }} />
+          </a>
         </Reveal>
         <Reveal delay={0.12} className="grid gap-4 sm:grid-cols-2">
           {[
@@ -717,6 +749,10 @@ function Projects() {
         <Reveal className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <SectionHeading eyebrow="Automation portfolio" title="Complex workflows, mapped from trigger to outcome." copy="Eleven self-directed automation builds organized across n8n, Make.com, and Zapier. Each case study demonstrates workflow architecture, AI integration, validation, routing, and human checkpoints. The time-savings ranges are illustrative estimates—not client results." />
           <a href="#contact" className="portfolio-action glow-button shrink-0"> Discuss your project <ArrowRight size={16} /> </a>
+          <a href="#contact" className="portfolio-action glow-button shrink-0" style={actionButtonStyle}>
+            <span style={{ minWidth: 0 }}>Discuss your project</span>
+            <ArrowRight size={16} style={{ flexShrink: 0 }} />
+          </a>
         </Reveal>
         <Reveal delay={0.08} className="mt-12">
           <div className="project-category-tabs" role="tablist" aria-label="Filter automation projects by platform">
@@ -765,6 +801,10 @@ function Projects() {
                     ))}
                   </div>
                   <button type="button" onClick={() => setSelected(project)} className="portfolio-action glow-button mt-7 self-start"> View case study <ArrowRight size={16} /> </button>
+                  <button type="button" onClick={() => setSelected(project)} className="portfolio-action glow-button mt-7 self-start" style={actionButtonStyle}>
+                    <span style={{ minWidth: 0 }}>View case study</span>
+                    <ArrowRight size={16} style={{ flexShrink: 0 }} />
+                  </button>
                 </div>
               </article>
             </Reveal>
@@ -819,6 +859,16 @@ function Projects() {
                     </div>
                   ))}
                 </div>
+              </div>
+              <div className="impact-estimate">
+                <div className="impact-estimate-heading">
+                  <span>Potential time saved</span>
+                  <strong>{selected.timeSaved}</strong>
+                </div>
+                <p>{selected.impact}</p>
+                <small>
+                  Illustrative estimate based on a recurring workload. Actual savings depend on process volume, complexity, and team adoption.
+                </small>
               </div>
               <a
                 href="#contact"
