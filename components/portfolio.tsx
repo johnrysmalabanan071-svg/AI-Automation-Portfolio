@@ -488,8 +488,6 @@ function Navigation() {
             </a>
           ))}
 </div>
-</div>
-
 <a
           href="#contact"
           className="button button-small shrink-0"
