@@ -4,7 +4,7 @@ import type { CSSProperties, FormEvent, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
-import { NeuralBackground } from './neural-background';
+import AIGridBackground from "@/components/AIGridBackground";
 import { portfolioVisual } from './portfolio-visual';
 import {
   ArrowRight,
