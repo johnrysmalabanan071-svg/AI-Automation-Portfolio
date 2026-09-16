@@ -581,82 +581,148 @@ html[data-theme='dark'] .experience-company { color: #67e8f9; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   
-@property --button-glow-angle {
+@property --portfolio-border-angle {
   syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
 }
 
-.glow-button {
-  --button-glow-angle: 0deg;
+/* Restore the two hero buttons */
+#top a.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 52px;
+  padding: 0.85rem 1.5rem;
+  border: 1px solid #333;
+  border-radius: 1rem;
+  text-decoration: none;
+  font-weight: 600;
+}
 
+#top a.hero-cta-dark {
+  background: #0a0a0a !important;
+  color: #ffffff !important;
+}
+
+#top a.hero-cta-light {
+  background: #ffffff !important;
+  color: #171717 !important;
+  border-color: #d4d4d4;
+}
+
+/* All native buttons and existing button-style links */
+:is(
+  button,
+  a.button,
+  a.hero-cta,
+  a.experience-note,
+  a.text-link,
+  a.glow-button
+):not(.no-glow) {
   position: relative;
-  border: 2px solid transparent !important;
-
-  background:
-    linear-gradient(#0a0a0a, #0a0a0a) padding-box,
-    conic-gradient(
-      from var(--button-glow-angle),
-      transparent 0deg,
-      transparent 235deg,
-      rgba(52, 211, 153, 0.2) 265deg,
-      #34d399 295deg,
-      #ffffff 320deg,
-      #34d399 342deg,
-      transparent 360deg
-    ) border-box !important;
-
-  animation: rotate-button-glow 2s linear infinite;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  isolation: isolate;
 }
 
-/* Use this on white buttons */
-.glow-button-light {
-  color: #0a0a0a !important;
+/* Border overlay: leaves the button's background and text intact */
+:is(
+  button,
+  a.button,
+  a.hero-cta,
+  a.experience-note,
+  a.text-link,
+  a.glow-button
+):not(.no-glow)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 2px;
+  border-radius: inherit;
+  pointer-events: none;
 
-  background:
-    linear-gradient(#ffffff, #ffffff) padding-box,
-    conic-gradient(
-      from var(--button-glow-angle),
-      transparent 0deg,
-      transparent 235deg,
-      rgba(16, 185, 129, 0.25) 265deg,
-      #10b981 295deg,
-      #064e3b 320deg,
-      #10b981 342deg,
-      transparent 360deg
-    ) border-box !important;
+  background: conic-gradient(
+    from var(--portfolio-border-angle),
+    transparent 0deg,
+    transparent 230deg,
+    rgba(16, 185, 129, 0.2) 265deg,
+    #10b981 295deg,
+    #6ee7b7 315deg,
+    #ffffff 325deg,
+    #10b981 340deg,
+    transparent 360deg
+  );
+
+  /* Show only the thin border */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+
+  opacity: 0.8;
+  animation: portfolio-border-spin 3s linear infinite;
+  transition: opacity 200ms ease;
 }
 
-.glow-button:hover {
-  transform: translateY(-2px);
-  animation-duration: 0.8s;
+/* Brighter moving border on hover and keyboard focus */
+:is(
+  button,
+  a.button,
+  a.hero-cta,
+  a.experience-note,
+  a.text-link,
+  a.glow-button
+):not(.no-glow):is(:hover, :focus-visible)::before {
+  opacity: 1;
+}
 
+:is(
+  button,
+  a.button,
+  a.hero-cta,
+  a.experience-note,
+  a.text-link,
+  a.glow-button
+):not(.no-glow):is(:hover, :focus-visible) {
   box-shadow:
-    0 0 8px rgba(52, 211, 153, 0.45),
-    0 0 20px rgba(52, 211, 153, 0.25),
-    0 10px 25px rgba(0, 0, 0, 0.2) !important;
+    0 0 8px rgba(16, 185, 129, 0.3),
+    0 0 20px rgba(16, 185, 129, 0.18);
 }
 
-.glow-button-light:hover {
-  box-shadow:
-    0 0 8px rgba(16, 185, 129, 0.4),
-    0 0 20px rgba(16, 185, 129, 0.2),
-    0 10px 25px rgba(0, 0, 0, 0.12) !important;
+/* No animated border on disabled controls */
+button:disabled::before,
+[aria-disabled="true"]::before {
+  content: none !important;
 }
 
-@keyframes rotate-button-glow {
+@keyframes portfolio-border-spin {
+  from {
+    --portfolio-border-angle: 0deg;
+  }
   to {
-    --button-glow-angle: 360deg;
+    --portfolio-border-angle: 360deg;
   }
 }
 
+/* Respect the visitor's reduced-motion preference */
 @media (prefers-reduced-motion: reduce) {
-  .glow-button {
-    animation: none;
+  :is(
+    button,
+    a.button,
+    a.hero-cta,
+    a.experience-note,
+    a.text-link,
+    a.glow-button
+  ):not(.no-glow)::before {
+    animation: none !important;
+    --portfolio-border-angle: 45deg;
   }
+}
 }
   html[data-theme="dark"] .experience-company,
 .credential-label,
