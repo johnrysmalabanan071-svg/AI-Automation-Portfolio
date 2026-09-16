@@ -545,10 +545,10 @@ function Hero() {
   I help businesses eliminate repetitive manual work through AI-powered automation—from voice agents and CRM workflows to lead scoring systems. With a B.S. in Information Technology and hands-on experience building production systems, I turn messy processes into reliable, scalable automation.
 </motion.p>
           <motion.div {...enter(0.26)} className="mt-8 flex flex-col gap-3 sm:flex-row">
-     <a
+    <a
   href="#contact"
   className="hero-cta hero-cta-dark button mt-10 w-full"
-  onClick={() => setOpen(false)}
+  onClick={() => setIsOpen?.(false)}   // or whatever your real state setter is called
 >
   Book a free automation audit <ArrowRight size={17} />
 </a>
